@@ -11,17 +11,17 @@ bool	is_valid_path_wav(std::string const & input)
 
 	if (!std::filesystem::exists(path))
 	{
-		std::cout << "The path does not exist." << std::endl;
+		std::cerr << "The path does not exist." << std::endl;
 		return false;
 	}
 	if (!std::filesystem::is_regular_file(path))
 	{
-		std::cout << "The path is not a file." << std::endl;
+		std::cerr << "The path is not a file." << std::endl;
 		return false;
 	}
 	if (!input.ends_with(".wav"))
 	{
-		std::cout << "Input is not a .wav file" << std::endl;
+		std::cerr << "Input is not a .wav file" << std::endl;
 		return false;
 	}
 	return true;
