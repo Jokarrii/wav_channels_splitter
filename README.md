@@ -1,3 +1,5 @@
+[🇬🇧 English](README.md) | [🇫🇷 Français](README_fr.md)
+
 # wav_channels_splitter
 
 `wav_channels_splitter` is a small C++20 utility designed to **split the audio channels of a multichannel WAV file**.
