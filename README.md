@@ -6,7 +6,15 @@ Pour chaque canal du fichier source, le programme crée un nouveau fichier WAV m
 
 Le projet possède deux implémentations distinctes afin de faciliter la compilation sur **Linux** et **Windows**.
 
----
+## Démonstration
+
+### Avant
+
+![Fichier WAV original](images/input.jpg)
+
+### Après
+
+![Fichiers WAV séparés par canal](images/output.jpg)
 
 ## Fonctionnement
 
@@ -383,34 +391,5 @@ Quelques limitations actuelles :
 - la sortie est reconstruite avec un chunk `fmt ` standard de 16 octets ;
 - un fichier mono ne produit aucun fichier supplémentaire ;
 - les formats WAV non reconnus ne sont pas explicitement bloqués avant le traitement du fichier, même si leur format reste marqué comme `UNKNOWN`.
-
----
-
-## Exemple complet
-
-Supposons un fichier multicanal :
-
-```text
-/home/jonathan/audio/orchestra.wav
-```
-
-La commande :
-
-```bash
-./wav_channels_splitter /home/jonathan/audio/orchestra.wav
-```
-
-peut produire :
-
-```text
-/home/jonathan/audio/orchestra_ch1.wav
-/home/jonathan/audio/orchestra_ch2.wav
-/home/jonathan/audio/orchestra_ch3.wav
-/home/jonathan/audio/orchestra_ch4.wav
-/home/jonathan/audio/orchestra_ch5.wav
-/home/jonathan/audio/orchestra_ch6.wav
-```
-
-Chaque fichier contient alors uniquement les données du canal correspondant.
 
 ---
