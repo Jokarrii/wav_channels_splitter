@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Classes\SystemFileAssociations\.wav\shell\WavChannelsSplitter]
+@="Wav channels Splitter"
+
+[HKEY_CURRENT_USER\Software\Classes\SystemFileAssociations\.wav\shell\WavChannelsSplitter\command]
+@="\"C:\\Program Files\\WavChannelsSplitter\\wav_channels_splitter.exe\" \"%1\""

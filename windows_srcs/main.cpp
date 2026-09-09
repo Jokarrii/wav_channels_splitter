@@ -3,23 +3,29 @@
 #include <fstream>
 #include <string>
 #include <filesystem>
+#include <cwctype>
 #include "Wav.hpp"
 
-bool	is_valid_path_wav(std::string const & input)
+bool is_valid_path_wav(const std::filesystem::path& path)
 {
-	std::filesystem::path path = input;
-
 	if (!std::filesystem::exists(path))
 	{
 		std::cout << "The path does not exist." << std::endl;
 		return false;
 	}
+
 	if (!std::filesystem::is_regular_file(path))
 	{
 		std::cout << "The path is not a file." << std::endl;
 		return false;
 	}
-	if (!input.ends_with(".wav"))
+
+	std::wstring ext = path.extension().wstring();
+
+	for (wchar_t& c : ext)
+		c = std::towlower(c);
+
+	if (ext != L".wav")
 	{
 		std::cout << "Input is not a .wav file" << std::endl;
 		return false;
@@ -41,26 +47,24 @@ bool set_filename(std::string & filename, char **argv)
 	}
 }
 
-void canal_splitter(Wav const &wav, const std::string& filename)
+void canal_splitter(Wav const & wav, std::filesystem::path const & filename)
 {
-	std::filesystem::path inputPath(filename);
-
-	std::filesystem::path outputPrefix = inputPath.parent_path() / inputPath.stem();
+	std::filesystem::path outputPrefix = filename.parent_path() / filename.stem();
 
 	wav.splitChannels(outputPrefix);
 }
 
-int	main(int argc, char **argv)
+int wmain(int argc, wchar_t **argv)
 {
 	if (argc != 2)
 	{
-		std::cerr	<< "Wrong number of argument." << std::endl
-					<< "Usage 2: ./wav_viewer <wav_file>" << std::endl;
+		std::wcerr	<< L"Wrong number of argument." << std::endl
+					<< L"Usage: wav_channels_splitter.exe <wav_file>" << std::endl;
 		return (1);
 	}
-	std::string filename;
-	if (!set_filename(filename, argv))
-		return (1);
+
+	std::filesystem::path filename = argv[1];
+
 	try
 	{
 		Wav wav(filename);
@@ -71,5 +75,6 @@ int	main(int argc, char **argv)
 		std::cerr << "Error: " << e.what() << std::endl;
 		return (1);
 	}
+
 	return (0);
 }
